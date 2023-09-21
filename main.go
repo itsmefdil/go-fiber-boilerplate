@@ -12,6 +12,10 @@ func main() {
 
 	database.ConnectDB()
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World 👋!")
+	})
+
 	router.SetupRoutes(app)
 
 	app.Listen(":3000")
