@@ -24,9 +24,9 @@ This is a simple REST API written in Golang using the Fiber framework, GORM and 
 ```
 DB_HOST=localhost
 DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=postgres
+DB_USER=your_username
+DB_PASSWORD=y0ur_p@ssw0rd
+DB_NAME=your_database_name
 ```
 
 4. Run `go get` to install all dependencies
