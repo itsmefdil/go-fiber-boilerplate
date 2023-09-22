@@ -9,14 +9,14 @@ import (
 func SetupNoteRoutes(router fiber.Router) {
 	note := router.Group("/note")
 
-	note.Post("/", noteController.CreateNotes)
+	note.Post("/", noteController.Create)
 
-	note.Get("/", noteController.GetNotes)
+	note.Get("/", noteController.Get)
 
-	note.Get("/:noteId", noteController.GetNote)
+	note.Get("/:noteId", noteController.GetById)
 
-	note.Put("/:noteId", noteController.UpdateNote)
+	note.Put("/:noteId", noteController.Update)
 
-	note.Delete("/:noteId", noteController.DeleteNote)
+	note.Delete("/:noteId", noteController.Delete)
 
 }

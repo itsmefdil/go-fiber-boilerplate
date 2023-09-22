@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func GetNotes(c *fiber.Ctx) error {
+func Get(c *fiber.Ctx) error {
 	db := database.DB
 	var notes []model.Note
 
@@ -21,7 +21,7 @@ func GetNotes(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Notes Found", "data": notes})
 }
 
-func CreateNotes(c *fiber.Ctx) error {
+func Create(c *fiber.Ctx) error {
 	db := database.DB
 	note := new(model.Note)
 
@@ -40,7 +40,7 @@ func CreateNotes(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Created", "data": note})
 }
 
-func GetNote(c *fiber.Ctx) error {
+func GetById(c *fiber.Ctx) error {
 	db := database.DB
 	var note model.Note
 
@@ -55,7 +55,7 @@ func GetNote(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Found", "data": note})
 }
 
-func UpdateNote(c *fiber.Ctx) error {
+func Update(c *fiber.Ctx) error {
 	type updateNote struct {
 		Title    string `json:"title"`
 		Subtitle string `json:"subtitle"`
@@ -88,7 +88,7 @@ func UpdateNote(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Updated", "data": note})
 }
 
-func DeleteNote(c *fiber.Ctx) error {
+func Delete(c *fiber.Ctx) error {
 	db := database.DB
 	var note model.Note
 
