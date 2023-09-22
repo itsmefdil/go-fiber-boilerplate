@@ -32,3 +32,32 @@ DB_NAME=your_database_name
 4. Run `go get` to install all dependencies
 5. Run `go run main.go` to start the server
 6. Open your browser and go to `http://localhost:3000/api/note` to see the list of notes
+
+### API Endpoints
+
+| Method | Endpoint      | Description       |
+| ------ | ------------- | ----------------- |
+| GET    | /api/note     | Get all notes     |
+| GET    | /api/note/:id | Get a single note |
+| POST   | /api/note     | Create a new note |
+| PUT    | /api/note/:id | Update a note     |
+| DELETE | /api/note/:id | Delete a note     |
+
+Example Create a new note
+
+    ```json
+    {
+    "title": "Test",
+    "subtitle": "Testsss",
+    "text": "Test Juga"
+    }
+    ```
+
+### References
+
+1. [Golang](https://golang.org/)
+2. [Fiber](https://gofiber.io/)
+3. [GORM](https://gorm.io/)
+4. [GORM PostgreSQL Driver](https://gorm.io/docs/connecting_to_the_database.html#PostgreSQL)
+5. [PostgreSQL](https://www.postgresql.org/)
+6. [Tutorial](https://dev.to/percoguru/getting-started-with-apis-in-golang-feat-fiber-and-gorm-2n34)
