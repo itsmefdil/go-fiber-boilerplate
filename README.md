@@ -31,4 +31,4 @@ DB_NAME=your_database_name
 
 4. Run `go get` to install all dependencies
 5. Run `go run main.go` to start the server
-6. Open your browser and go to `http://localhost:3000/api/note` to see the list of users
+6. Open your browser and go to `http://localhost:3000/api/note` to see the list of notes
