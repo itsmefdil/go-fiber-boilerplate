@@ -1,8 +1,8 @@
-package noteHandler
+package noteController
 
 import (
-	"fiber/database"
-	"fiber/internal/model"
+	"fiber/app/model"
+	"fiber/config/database"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"

@@ -1,7 +1,7 @@
 package router
 
 import (
-	noteRoutes "fiber/internal/routes/note"
+	noteRoutes "fiber/app/routes/note"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"

@@ -5,8 +5,8 @@ import (
 	"log"
 	"strconv"
 
+	"fiber/app/model"
 	"fiber/config"
-	"fiber/internal/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
