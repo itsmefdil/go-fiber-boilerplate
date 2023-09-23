@@ -1,0 +1,130 @@
+basePath: /
+definitions:
+  model.NoteJson:
+    properties:
+      subtitle:
+        type: string
+      text:
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: Golang with fiber.
+  title: Fiber Swagger
+  version: "2.0"
+paths:
+  /api/note:
+    get:
+      consumes:
+      - application/json
+      description: get all notes.
+      operationId: get-notes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List all notes.
+      tags:
+      - Notes
+    post:
+      consumes:
+      - application/json
+      description: create a note.
+      operationId: create-notes
+      parameters:
+      - description: Create new note.
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/model.NoteJson'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create a note.
+      tags:
+      - Notes
+  /api/note/{uuid}:
+    get:
+      consumes:
+      - application/json
+      description: Get note by id.
+      operationId: getById-notes
+      parameters:
+      - description: Note ID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get note by id.
+      tags:
+      - Notes
+  /health:
+    get:
+      consumes:
+      - '*/health*'
+      description: get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+      - Health
+schemes:
+- http
+swagger: "2.0"

@@ -8,6 +8,15 @@ import (
 	"github.com/google/uuid"
 )
 
+// NotesAPI godoc
+// @Summary List all notes.
+// @Description get all notes.
+// @Tags Notes
+// @ID get-notes
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /api/note [get]
 func Get(c *fiber.Ctx) error {
 	db := database.DB
 	var notes []model.Note
@@ -21,6 +30,20 @@ func Get(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Notes Found", "data": notes})
 }
 
+// NotesAPI godoc
+// @Summary Create a note.
+// @Description create a note.
+// @Tags Notes
+// @ID create-notes
+// @Param Body body model.NoteJson true "Create new note."
+// @Example body {"title": "Note Title", "subtitle": "Note Subtitle", "text": "Note Text"}
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Router /api/note [post]
 func Create(c *fiber.Ctx) error {
 	db := database.DB
 	note := new(model.Note)
@@ -40,6 +63,20 @@ func Create(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Created", "data": note})
 }
 
+// NotesAPI godoc
+// @Summary Get note by id.
+// @Description Get note by id.
+// @Tags Notes
+// @ID getById-notes
+// @Param uuid path string true "Note ID"
+// @Example Body 1
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Router /api/note/{uuid} [get]
 func GetById(c *fiber.Ctx) error {
 	db := database.DB
 	var note model.Note

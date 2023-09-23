@@ -12,3 +12,9 @@ type Note struct {
 	Subtitle string
 	Text     string
 }
+
+type NoteJson struct {
+	Title    string `json:"title"`
+	Subtitle string `json:"subtitle"`
+	Text     string `json:"text"`
+}
