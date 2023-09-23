@@ -1,0 +1,9 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: go-fiber-note
+    network_mode: host
+    command: go run main.go
+    env_file:
+      - .env
