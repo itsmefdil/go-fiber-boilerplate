@@ -53,6 +53,10 @@ Example Create a new note
     }
     ```
 
+### Swagger Documentation
+
+1. Open your browser and go to `http://localhost:3000/swagger/index.html` to see the swagger documentation
+
 ### References
 
 1. [Golang](https://golang.org/)
