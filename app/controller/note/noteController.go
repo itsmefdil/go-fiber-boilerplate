@@ -92,6 +92,21 @@ func GetById(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Found", "data": note})
 }
 
+// NotesAPI godoc
+// @Summary Update a note by id.
+// @Description Update a note by id.
+// @Tags Notes
+// @ID update-notes
+// @Param uuid path string true "Note ID"
+// @Param Body body model.NoteJson true "Create new note."
+// @Example body {"title": "Note Title", "subtitle": "Note Subtitle", "text": "Note Text"}
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Router /api/note/{uuid} [put]
 func Update(c *fiber.Ctx) error {
 	type updateNote struct {
 		Title    string `json:"title"`
@@ -125,6 +140,20 @@ func Update(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note Updated", "data": note})
 }
 
+// NotesAPI godoc
+// @Summary Delete note by id.
+// @Description Delete note by id.
+// @Tags Notes
+// @ID deleteById-notes
+// @Param uuid path string true "Note ID"
+// @Example Body 1
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Failure 500 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Router /api/note/{uuid} [delete]
 func Delete(c *fiber.Ctx) error {
 	db := database.DB
 	var note model.Note
