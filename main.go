@@ -5,9 +5,12 @@ import (
 	"fiber/router"
 	"log"
 
+	_ "fiber/docs/swagger"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	swagger "github.com/gofiber/swagger"
 )
 
 func main() {
@@ -27,6 +30,7 @@ func main() {
 	})
 
 	app.Get("/health", HealthCheck)
+	app.Get("/swagger/*", swagger.HandlerDefault) // default
 
 	router.SetupRoutes(app)
 

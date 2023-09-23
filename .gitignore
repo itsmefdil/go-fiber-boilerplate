@@ -1,1 +1,4 @@
+# Ignore everything in this directory
+
 .env
+vendor
