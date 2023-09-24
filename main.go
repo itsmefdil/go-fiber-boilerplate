@@ -29,6 +29,9 @@ func main() {
 		JSONDecoder: json.Unmarshal,
 	})
 
+	// Favicons
+	app.Static("/favicon.ico", "./public/img/favicon.png")
+
 	// BasicAuth()
 	// Provide a minimal config
 	auth := basicauth.Config{
