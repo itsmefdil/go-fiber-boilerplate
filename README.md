@@ -19,16 +19,7 @@ This is a simple REST API written in Golang using the Fiber framework, GORM and 
 
 1. Clone this repository
 2. Create a database in PostgreSQL
-3. Create a `.env` file in the root directory of this project and add the following:
-
-```
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=your_username
-DB_PASSWORD=y0ur_p@ssw0rd
-DB_NAME=your_database_name
-```
-
+3. Copy `.env.example` to `.env` and change some values
 4. Run `go get` to install all dependencies
 5. Run `go run main.go` to start the server
 6. Open your browser and go to `http://localhost:3000/api/note` to see the list of notes
@@ -55,7 +46,7 @@ Example Create a new note
 
 ### Swagger Documentation
 
-1. Open your browser and go to `http://localhost:3000/swagger/index.html` to see the swagger documentation
+1. Open your browser and go to `http://localhost:3000/docs` to see the swagger documentation
 
 ### References
 
@@ -65,3 +56,4 @@ Example Create a new note
 4. [GORM PostgreSQL Driver](https://gorm.io/docs/connecting_to_the_database.html#PostgreSQL)
 5. [PostgreSQL](https://www.postgresql.org/)
 6. [Tutorial](https://dev.to/percoguru/getting-started-with-apis-in-golang-feat-fiber-and-gorm-2n34)
+7. [Swagger](https://swagger.io/)
