@@ -11,9 +11,9 @@ import (
 	_ "fiber/docs"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/basicauth"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/template/html/v2"
 )
 
 // @title Fiber Swagger
@@ -23,25 +23,19 @@ import (
 // @BasePath /
 // @schemes http
 func main() {
+
+	// Create a html engine
+	engine := html.New("./resources/views", ".html")
+
 	// Fiber instance
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
+		Views:       engine,
 	})
 
 	// Favicons
 	app.Static("/favicon.ico", "./public/img/favicon.png")
-
-	// BasicAuth()
-	// Provide a minimal config
-	auth := basicauth.Config{
-		Users: map[string]string{
-			config.Config("BASIC_AUTH_USERNAME"): config.Config("BASIC_AUTH_PASSWORD"),
-			// Add more users as needed
-		},
-	}
-	// Middleware for Basic Authentication
-	app.Use(basicauth.New(auth))
 
 	// Connect to database
 	database.ConnectDB()
@@ -53,8 +47,9 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	// Setup routes
-	router.SetupRoutes(app)
+	// Setup router
+	router.WebRouter(app)
+	router.ApiRouter(app)
 
 	// Show Version
 	fmt.Println("Application Version:", config.GetVersion())

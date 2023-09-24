@@ -21,15 +21,14 @@ func Config(key string) string {
 }
 
 func GetVersion() string {
-	// Baca isi file version.txt
+	// Read file version.txt
 	content, err := os.ReadFile("version.txt")
 	if err != nil {
 		log.Fatalf("Error reading version.txt: %v", err)
 	}
 
-	// Konversi isi file menjadi string
+	// Convert []byte to string and print to screen
 	version := string(content)
 
-	// Gunakan variabel 'version' dalam aplikasi Anda
 	return version
 }

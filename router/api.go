@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fiber/app/helpers"
 	noteRoutes "fiber/app/routes/note"
 	"fiber/config"
 
@@ -9,16 +10,16 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-func SetupRoutes(app *fiber.App) {
-	api := app.Group("/api", logger.New())
-
-	// Routes
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Server is up and running 🚀")
-	})
+func ApiRouter(app *fiber.App) {
 
 	// Health Check
 	app.Get("/health", config.HealthCheck)
+
+	// Basic Auth
+	helpers.BasicAuth(app)
+
+	// Create a new Fiber instance
+	api := app.Group("/api", logger.New())
 
 	// Swagger
 	app.Get("/docs/*", swagger.HandlerDefault) // default
