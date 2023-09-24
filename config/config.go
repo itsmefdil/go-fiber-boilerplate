@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -17,4 +18,18 @@ func Config(key string) string {
 	}
 
 	return os.Getenv(key)
+}
+
+func GetVersion() string {
+	// Baca isi file version.txt
+	content, err := os.ReadFile("version.txt")
+	if err != nil {
+		log.Fatalf("Error reading version.txt: %v", err)
+	}
+
+	// Konversi isi file menjadi string
+	version := string(content)
+
+	// Gunakan variabel 'version' dalam aplikasi Anda
+	return version
 }

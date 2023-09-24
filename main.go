@@ -4,6 +4,7 @@ import (
 	"fiber/config"
 	"fiber/config/database"
 	"fiber/router"
+	"fmt"
 	"log"
 
 	_ "fiber/docs"
@@ -12,7 +13,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	swagger "github.com/gofiber/swagger"
 )
 
 // @title Fiber Swagger
@@ -27,58 +27,37 @@ func main() {
 
 	// BasicAuth()
 	// Provide a minimal config
-	config := basicauth.Config{
+	auth := basicauth.Config{
 		Users: map[string]string{
 			config.Config("BASIC_AUTH_USERNAME"): config.Config("BASIC_AUTH_PASSWORD"),
 			// Add more users as needed
 		},
 	}
 	// Middleware for Basic Authentication
-	app.Use(basicauth.New(config))
+	app.Use(basicauth.New(auth))
 
 	// Connect to database
 	database.ConnectDB()
 
 	// Middleware
 	app.Use(recover.New())
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: config.Config("CORS_ALLOW_ORIGINS"),
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
-	// Routes
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Server is up and running 🚀")
-	})
-
-	app.Get("/health", HealthCheck)
-	app.Get("/swagger/*", swagger.HandlerDefault) // default
-
+	// Setup routes
 	router.SetupRoutes(app)
 
-	if err := app.Listen(":3000"); err != nil {
+	// Show Version
+	fmt.Println("Application Version:", config.GetVersion())
+
+	port := config.Config("APP_PORT")
+	if port == "" {
+		port = "3000"
+	}
+
+	if err := app.Listen(":" + port); err != nil {
 		log.Fatal(err)
 	}
-}
-
-// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags Health
-// @Accept */health*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router /health [get]
-func HealthCheck(c *fiber.Ctx) error {
-	// Check DB connection
-	res := map[string]interface{}{
-		"status": "success",
-		"database": map[string]interface{}{
-			"status": "connected",
-		},
-		"data": "Server is up and running",
-	}
-
-	if err := c.JSON(res); err != nil {
-		return err
-	}
-
-	return nil
 }
