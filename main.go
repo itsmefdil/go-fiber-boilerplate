@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fiber/app/helpers"
 	"fiber/config"
 	"fiber/config/database"
 	"fiber/router"
@@ -11,7 +12,6 @@ import (
 	_ "fiber/docs"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html/v2"
 )
@@ -40,12 +40,9 @@ func main() {
 	// Connect to database
 	database.ConnectDB()
 
-	// Middleware
+	// mIddlewares
 	app.Use(recover.New())
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: config.Config("CORS_ALLOW_ORIGINS"),
-		AllowHeaders: "Origin, Content-Type, Accept",
-	}))
+	helpers.CorsHelper(app)
 
 	// Setup router
 	router.WebRouter(app)
