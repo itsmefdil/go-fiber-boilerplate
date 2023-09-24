@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fiber/config"
 	"fiber/config/database"
 	"fiber/router"
@@ -23,7 +24,10 @@ import (
 // @schemes http
 func main() {
 	// Fiber instance
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		JSONEncoder: json.Marshal,
+		JSONDecoder: json.Unmarshal,
+	})
 
 	// BasicAuth()
 	// Provide a minimal config
