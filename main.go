@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fiber/config"
 	"fiber/config/database"
 	"fiber/router"
 	"log"
@@ -8,6 +9,7 @@ import (
 	_ "fiber/docs"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/basicauth"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	swagger "github.com/gofiber/swagger"
@@ -23,6 +25,17 @@ func main() {
 	// Fiber instance
 	app := fiber.New()
 
+	// BasicAuth()
+	// Provide a minimal config
+	config := basicauth.Config{
+		Users: map[string]string{
+			config.Config("BASIC_AUTH_USERNAME"): config.Config("BASIC_AUTH_PASSWORD"),
+			// Add more users as needed
+		},
+	}
+	// Middleware for Basic Authentication
+	app.Use(basicauth.New(config))
+
 	// Connect to database
 	database.ConnectDB()
 
@@ -32,7 +45,7 @@ func main() {
 
 	// Routes
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
+		return c.SendString("Server is up and running 🚀")
 	})
 
 	app.Get("/health", HealthCheck)
@@ -54,7 +67,12 @@ func main() {
 // @Success 200 {object} map[string]interface{}
 // @Router /health [get]
 func HealthCheck(c *fiber.Ctx) error {
+	// Check DB connection
 	res := map[string]interface{}{
+		"status": "success",
+		"database": map[string]interface{}{
+			"status": "connected",
+		},
 		"data": "Server is up and running",
 	}
 
